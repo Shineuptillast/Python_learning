@@ -1,0 +1,21 @@
+INFO:root:Start of Function --> Input 4 6 
+INFO:root:Start of Function --> Input 10 10 
+INFO:root:Start of Function --> Input 20 67 
+INFO:root:This is for info
+WARNING:root:This is my warning log
+ERROR:root:This is my error log
+ERROR:root:This is my exception
+NoneType: None
+CRITICAL:root:This is my critical log
+INFO:root:This is for info
+WARNING:root:This is my warning log
+ERROR:root:This is my error log
+ERROR:root:This is my exception
+NoneType: None
+CRITICAL:root:This is my critical log
+INFO:root:This is for info
+WARNING:root:This is my warning log
+ERROR:root:This is my error log
+ERROR:root:This is my exception
+NoneType: None
+CRITICAL:root:This is my critical log

@@ -1,0 +1,6 @@
+INFO:root:The number of input submitted by user are --> 1 and the values of all the inputs are ([1, 1, 1, 1],) 
+INFO:root:The number of input submitted by user are --> 5 and the values of all the inputs are (1, 2, 3, 4, 5) 
+INFO:root:This is the function of calculating the sum of any number of arguments passed during function call
+INFO:root:The number of input submitted by user are --> 5 and the values of all the inputs are (1, 2, 3, 4, 5) 
+INFO:root:User-Instruction--> This is the function of calculating the sum of any number of arguments passed during function call
+INFO:root:The number of input submitted by user are --> 5 and the values of all the inputs are (1, 2, 3, 4, 5) 
