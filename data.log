@@ -1,0 +1,22 @@
+2023-01-25 03:35:37,917 root INFO The initialization of parameters, Object Instantiation
+2023-01-25 03:36:51,375 root INFO The initialization of parameters, Object Instantiation
+2023-01-25 03:36:56,120 root INFO Opening a file Oops
+2023-01-25 03:36:56,121 root INFO Creating a file Oops
+2023-01-25 03:36:56,122 root ERROR Cant open file Oops The error is 'function' object has no attribute 'info'
+2023-01-25 03:36:59,926 root INFO Reading a file Oops
+2023-01-25 03:36:59,927 root INFO Opening file Oops
+2023-01-25 03:36:59,927 root INFO File opened
+2023-01-25 03:36:59,928 root INFO data is read and printed on the console
+2023-01-25 03:37:57,902 root INFO The initialization of parameters, Object Instantiation
+2023-01-25 03:37:58,902 root INFO Opening a file Oops
+2023-01-25 03:37:58,904 root INFO Appending to the file Oops
+2023-01-25 03:37:58,904 root INFO Appending to the file Oops
+2023-01-25 03:37:58,904 root INFO File already present for appending
+2023-01-25 03:37:58,904 root INFO Opening file Oops
+2023-01-25 03:37:58,904 root INFO file opened Oops
+2023-01-25 03:37:58,904 root INFO Data is written to the file Oops
+2023-01-25 03:37:58,905 root INFO File is appended
+2023-01-25 03:38:00,215 root INFO Reading a file Oops
+2023-01-25 03:38:00,217 root INFO Opening file Oops
+2023-01-25 03:38:00,221 root INFO File opened
+2023-01-25 03:38:00,221 root INFO data is read and printed on the console
