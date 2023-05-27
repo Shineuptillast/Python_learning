@@ -1,0 +1,45 @@
+import pymongo
+client= pymongo.MongoClient("mongodb://localhost:27017/neurolabDB")
+database_=client['ProductsDB']
+collections_ = database_['Products']
+document={
+    "productname":"CAR Brezza",
+    "productprice":"2 lakhs"
+}
+collections_.insert_one(document)
+rec = collections_.find_one()
+print(rec)
+client.list_database_names()
+database_.list_collection_names()
+document_2={
+    "name":"Preeti",
+    "Salary":"78000",
+    "Job_Dept":"HR",
+    "keyarea":"Recruiting"
+}
+col=collections_.insert_one(document_2)
+collections_.find_one()
+data=collections_.find()
+for i in data:
+    print(i)
+col.inserted_id
+list_of_documents=[
+    {
+        "name":"Naman"
+    },
+    {
+        "name":"Preeti"
+    }
+]
+col_many=collections_.insert_many(list_of_documents)
+col_many.inserted_ids
+data=collections_.find()
+data[0]
+data[3]
+for i in data[0:5]:
+    print(i)
+data=collections_.find().limit(2)
+for i in data:
+    print(i)
+data=collections_.find()
+
