@@ -1,0 +1,12 @@
+# importing pymongo library for connecting to the mongod server
+import pymongo
+import pandas as pd
+# connecting to the mongodb server installed locally on port number 27017
+client= pymongo.MongoClient('mongodb://localhost:27017/')
+df=pd.read_csv('./data.csv')
+df.head()
+list_of_documents=df.to_json(orient='records')
+list_of_documents=list_of_documents.replace("'",'')
+list_of_documents
+db.create_collection('marks')
+
