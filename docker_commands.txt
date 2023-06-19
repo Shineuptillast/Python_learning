@@ -1,0 +1,63 @@
+# Check the version of docker
+docker --version
+
+# List all the images present in docker desktop
+docker images or docker image ls 
+
+# List all the running containers
+docker ps 
+
+# List all the containers whether running or stopped
+docker ps -a
+
+# List the container id of running container
+docker ps -q
+
+# List the container ids of running and stopped container
+docker ps -a -q
+
+# Pull an image from docker hub
+docker pull nginx
+
+# Pull an image with a specified version from docker hub
+docker pull nginx:stable-alpine3.17-perl
+
+# Creating a container from the image
+docker run nginx
+
+# Stopping the running container 
+docker stop <container-id>
+
+# Start the stopped container
+docker start <container-id>
+
+# Delete the container
+docker rm <container-id>
+
+# Removing all the container in one command
+docker rm $(docker ps -a -q)
+
+# Removing the running container forcefully
+docker rm -f <container-id>
+
+# Port Mapping
+docker run -p <host port: container port> nginx
+
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
