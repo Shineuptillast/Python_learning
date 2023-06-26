@@ -1,0 +1,164 @@
+# Aggregation commands
+
+# total numbers of rows in dataframe
+ df.count() 
+
+ # column count
+
+ # import all the functions for aggregation
+ from pyspark.sql.functions import *
+ df.select(count('salary')).show()
+
+# Column alias
+ df.select(count('salary').alias('Total salary')).show()
+
+# salary sum
+ df.select(sum('salary').alias('Total salary')).show()
+
+# avg salary
+ df.select(avg('salary').alias('Total salary')).show()
+
+# max salary
+df.select(max('salary').alias('Total salary')).show()
+
+# min salary
+df.select(min('salary').alias('Total salary')).show()
+
+# Error
+# should be part of group by clause
+df.select('employee_id',min(col('salary')).alias('Total salary')).show()
+
+# Ordering the dataframe according to any column value in ascending/descending
+
+df.orderBy(col('salary')).select('employee_id','first_name','salary','department_id').show()
+
+# ordering by two columns
+
+df.orderBy(col('salary'), col('department_id')).select('employee_id','first_name','salary','department_id').show()
+
+# ascending and descending
+
+df.orderBy(col('salary').asc(), col('department_id').desc()).select('employee_id','first_name','salary','department_id').show()
+
+# Grouping 
+
+
+#1st method
+
+#Grouping on 1 column
+df.groupBy(col('department_id')).sum('salary').show()
+
+df.groupBy(col('department_id')).min('salary').show()
+
+#Grouping on 2 columns
+df.groupBy(col('department_id'),col('job_id')).sum('salary').show()
+
+# Sum operation on more than 1 column
+df.groupBy(col('department_id'),col('job_id')).sum('salary','employee_id').show()
+
+# 2nd method
+# flexibility and different aggregation function can be used in same transformation
+
+df.groupBy('department_id').agg(sum('salary').alias('salary sum'), max('salary').alias('Max salary')).show()
+
+# having clause
+
+# Max salary greater than 10000
+df.groupBy('department_id').agg(sum('salary').alias('salary sum'), max('salary').alias('Max salary')).where(col('max salary')
+>10000).show()
+
+
+#max salary equals to 10000
+df.groupBy('department_id').agg(sum('salary').alias('salary sum'), max('salary').alias('Max salary')).where(col('max salary')
+==11000).show()
+
+
+# when - otherwise statement in Pyspark
+# behaves same as case when statement in sql
+df1 = df.withColumn('EMP_GRADE', when( col('salary') > 15000 ,'A').when( ( (col('salary') >=10000 )  & ( col('salary')< 15000) ), 'B').otherwise('C')).show()
+----------------------------------------------------------------------------
+# Spark SQL
+# converting dataframe into sql table
+
+df.createOrReplaceTempView('Employee')
+
+# Table is created by the table name--employee
+# querying the table
+# returns dataframe as an output
+spark.sql('select * from employee limit 5').show()
+
+df4 = spark.sql('select department_id as dept_id, sum(salary) from employee group by department_id')
+
+df4.show()
+
+----------------------------------------------------------------------------------------------------------
+
+#Joins
+
+# Inner Join
+
+df1.join(df2, df1.department_id==df2.department_id, 'inner').show()
+
+
+df.join(df2, df.DEPARTMENT_ID==df2.DEPARTMENT_ID, 'inner').select(df['department_id'], df['first_name'],df2['department_name']).show()
+
+# left join
+
+df.join(df2, df.DEPARTMENT_ID==df2.DEPARTMENT_ID, 'left').select(df['employee_id'], df['department_id'],df2['department_name']).show()
+
+# Right join
+df.join(df2, df.DEPARTMENT_ID==df2.DEPARTMENT_ID, 'right').select(df['employee_id'], df['department_id'],df2['department_name']).show()
+
+# Full outer join
+
+df.join(df2, df['department_id']==df2['department_id'], 'fullouter').select(df['employee_id'], df['department_id'],df2['department_name']).show(100)
+
+# self join
+
+df.alias('emp1').join(df.alias('emp2') , col('emp1.manager_id') == col('emp2.employee_id') , 'inner').show()
+
+# Selecting only few columns with aliases
+df.alias('emp1').join(df.alias('emp2') , col('emp1.manager_id') == col('emp2.employee_id') , 'inner')
+.select(col('emp1.employee_id'),col('emp1.first_name').alias('emp name'),col('emp1.manager_id'), col('emp2.first_name').alias('manager_name')).show()
+
+# Multiple condition for join
+
+df.join(df2, (df['department_id']==df2['department_id']) & (df2['location_id']==1700), 'fullouter').select(df['employee_id'], df['department_id'],df2['department_name']).show(100)
+
+from pyspark.sql.types import StructType,StructField, StringType, IntegerType
+location_data = [(1800, 'India'), (1900, 'USA')]
+
+ schema = StructType([ StructField('location_id', IntegerType(), True), StructField('Location', StringType(), True)])
+df = spark.createDataFrame(data=location_data, schema=schema)
+
+
+# multi level join
+
+# 2 times inner join 1st with emp and dept and 2nd with the joined dataframe and location dataframe
+
+df.join(df2, df['dept_id']==df2['dept_id'], 'inner').join(locdf, locdf['loc_id']==df2['loc_id'], 'inner').show()
+
+
+# User Defined Function
+
+def uppercase(in_str):
+     out_str = in_str.upper()
+     return out_str
+
+from pyspark.sql.functions import udf 
+
+
+# Registring our function in udf
+uppercase_udf = udf(lambda x : uppercase(x),StringType())
+
+# using our function
+df.select(uppercase_udf(df['location'])).show()
+
+
+# 2nd method of registring our function
+@udf(returnType=StringType())
+def uppercase_2(in_str):
+     out_str = in_str.upper()
+     return out_str
+
+# Window function
